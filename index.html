@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Steam Store Page Images</title>
+  </head>
+  <body>
+    <h5 style="margin-bottom: 5px;">Steam App ID</h5>
+    <input id="steamappid" type="number" pattern="[0-9]" placeholder="STEAM APP ID" oninput="DisplayImagesElement(this);">
+    <div id="output"></div>
+    <script type="text/javascript">
+      var output = document.getElementById("output");
+
+      function DisplayImagesElement(e) {
+        var steamappid = e.value;
+        steamappid ??= 10;
+        steamappid = steamappid == "" ? 10 : steamappid;
+        DisplayImages(steamappid);
+      }
+
+      function DisplayImages(steamappid) {
+        output.innerHTML = "";
+
+        DoText("Small Capsule");
+        DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/capsule_sm_120.jpg`);
+
+        DoText("Header");
+        DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/header.jpg`);
+
+        DoText("Main Capsule");
+        DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/capsule_616x353.jpg`);
+
+        DoText("Vertical Capsule");
+        DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/hero_capsule.jpg`);
+      }
+
+      function DoText(text) {
+        var e = document.createElement("h3");
+        e.innerText = text;
+        output.appendChild(e);
+      }
+
+      function DoImage(url) {
+        var e = document.createElement("img");
+        e.src = url;
+        output.appendChild(e);
+      }
+
+      function OnLoad() {
+        var paramId = window.location.search.substr(1);
+        if (paramId == "") paramId = "10";
+        DisplayImages(paramId);
+        document.getElementById("steamappid").value = paramId;
+      }
+
+      OnLoad();
+    </script>
+    <style>
+      html {
+        background-color: #222;
+        color: white;
+        font-family: 'Consolas', Courier, monospace;
+      }
+    </style>
+  </body>
+</html>
