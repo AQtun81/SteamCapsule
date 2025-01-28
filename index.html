@@ -7,9 +7,13 @@
   <body>
     <h5 style="margin-bottom: 5px;">Steam App ID</h5>
     <input id="steamappid" type="number" pattern="[0-9]" placeholder="STEAM APP ID" oninput="DisplayImagesElement(this);">
+    <h5 style="margin-bottom: 5px;">Show All Sizes</h5>
+    <input type="checkbox" id="showall" oninput="DisplayImages(lastSteamAppId);">
     <div id="output"></div>
     <script type="text/javascript">
       var output = document.getElementById("output");
+      var showAllCheckbox = document.getElementById("showall");
+      var lastSteamAppId = 10;
 
       function DisplayImagesElement(e) {
         var steamappid = e.value;
@@ -19,19 +23,65 @@
       }
 
       function DisplayImages(steamappid) {
+        lastSteamAppId = steamappid;
         output.innerHTML = "";
 
-        DoText("Small Capsule");
-        DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/capsule_sm_120.jpg`);
+        if (showAllCheckbox.checked) {
+          DoText("Small Capsule (120x45)");
+          DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/capsule_sm_120.jpg`);
+        }
 
-        DoText("Header");
-        DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/header.jpg`);
+        DoText("Small Capsule (231x87)");
+        DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/capsule_231x87.jpg`);
 
-        DoText("Main Capsule");
+        if (showAllCheckbox.checked) {
+          DoText("Header (460x215)");
+          DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/header.jpg`);
+        }
+
+        DoText("Header (920x430)");
+        DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/header_2x.jpg`);
+
+        DoText("Main Capsule (616x353)");
         DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/capsule_616x353.jpg`);
 
-        DoText("Vertical Capsule");
+        DoText("Vertical Capsule (374x448)");
         DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/hero_capsule.jpg`);
+
+        if (showAllCheckbox.checked) {
+          DoText("Vertical Capsule (300x450)");
+          DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/library_600x900.jpg`);
+        }
+
+        DoText("Vertical Capsule (600x900)");
+        DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/library_600x900_2x.jpg`);
+
+        if (showAllCheckbox.checked) {
+          DoText("Library Hero (1920x620)");
+          DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/library_hero.jpg`);
+        }
+
+        DoText("Library Hero (3840x1240)");
+        DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/library_hero_2x.jpg`);
+
+        if (showAllCheckbox.checked) {
+          DoText("Logo (640x360)");
+          DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/logo.png`);
+        }
+
+        DoText("Logo (1280x720)");
+        DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/logo_2x.png`);
+
+        if (showAllCheckbox.checked) {
+          DoText("Library Header Capsule (460x215)");
+          DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/library_header.jpg`);
+        }
+
+        DoText("Library Header Capsule (920x430)");
+        DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/library_header_2x.jpg`);
+
+        DoText("Store Page Background");
+        DoImage(`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${steamappid}/page_bg_raw.jpg`);
       }
 
       function DoText(text) {
@@ -43,6 +93,7 @@
       function DoImage(url) {
         var e = document.createElement("img");
         e.src = url;
+        e.style.maxWidth = "100%";
         output.appendChild(e);
       }
 
